@@ -18,4 +18,3 @@ workflows:
   execute_bulk:
     jobs:
       - build_deploy_calendar
-      
