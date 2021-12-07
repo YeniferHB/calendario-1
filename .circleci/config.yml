@@ -1,5 +1,5 @@
 jobs:
-  build_deploy_calendar: # name of your job
+  build-deploy: # name of your job
     machine: # executor type
       image: ubuntu-2004:202010-01 # # recommended linux image - includes Ubuntu 20.04, docker 19.03.13, docker-compose 1.27.4
 
@@ -14,7 +14,6 @@ jobs:
         - run: npm install && ng build
         - run: aws s3 cp dist/calendario s3://angular-ucp-calendar --recursive
 workflows:
-  version: 2
-  execute_bulk:
+  build-deploy-workflow:
     jobs:
-      - build_deploy_calendar
+      - build-deploy
