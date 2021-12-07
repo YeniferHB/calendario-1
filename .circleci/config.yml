@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build-deploy: # name of your job
     machine: # executor type
-      image: ubuntu-2004:202010-01 # # recommended linux image - includes Ubuntu 20.04, docker 19.03.13, docker-compose 1.27.4
+      image: ubuntu-1604:202007-01 # VM will run Ubuntu 16.04 for this release date
       steps:
         - checkout
         - run:
