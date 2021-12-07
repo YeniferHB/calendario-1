@@ -429,8 +429,8 @@ export class AdminEventosComponent implements OnInit {
                 beforeStart: true,
                 afterEnd: true,
               },
-              draggable: true,
-              tipoEvento: datos[i].tipo_evento_id
+              draggable: true
+             // tipoEvento: datos[i].tipo_evento_id
             }
             this.events.push(evento);
       }
@@ -468,8 +468,8 @@ export class AdminEventosComponent implements OnInit {
                 beforeStart: true,
                 afterEnd: true,
               },
-              draggable: true,
-              tipoEvento: datos[i].tipo_evento_id
+              draggable: true
+              //tipoEvento: datos[i].tipo_evento_id
             }
             this.events.push(evento);
          
