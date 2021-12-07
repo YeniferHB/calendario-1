@@ -10,7 +10,7 @@ jobs:
             sudo apt-get update
             sudo apt install python3-pip
             sudo pip3 install awsebcli --upgrade
-      - run: npm install && ng build
+      - run: npm install && npm run build
       - run: aws s3 cp dist/calendario s3://angular-ucp-calendar --recursive
 
 workflows:
