@@ -1,47 +1,21 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
-version: 2.1
-environment_variables:
-    plaintext:
-        S3_BUCKET: "angular-ucp-calendar"
-        BUILD_ENV: "prod"
-phases:
-    install:
-        commands:
-            - echo Installing source NPM dependencies...
-            - npm install
-    build:
-        commands:
-            - echo Build started on `date`
-            - ng build --env=${BUILD_ENV}
-    post_build:
-         commands:
-            - aws s3 cp dist/calendario s3://angular-ucp-calendar --recursive
-            - echo Build completed on `date`
-artifacts:
-    files:
-        - '**/*'
-    base-directory: 'dist*'
-    discard-paths: yes
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
-    steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+  build_deploy_calendar: # name of your job
+    machine: # executor type
+      image: ubuntu-2004:202010-01 # # recommended linux image - includes Ubuntu 20.04, docker 19.03.13, docker-compose 1.27.4
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+      steps:
+        - checkout
+        - run:
+            name: Installin AWS CLI
+            command: |
+              sudo apt-get update
+              sudo apt install python3-pip
+              sudo pib3 install awsebcli --upgrade
+        - run: npm install && ng build
+        - run: aws s3 cp dist/calendario s3://angular-ucp-calendar --recursive
 workflows:
-  say-hello-workflow:
+  version: 2
+  execute_bulk:
     jobs:
-      - say-hello
+      - build_deploy_calendar
+      
