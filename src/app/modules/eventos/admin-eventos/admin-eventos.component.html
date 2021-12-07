@@ -156,12 +156,12 @@
               <td>
                 <input [(ngModel)]="event.end"  type="text" class="form-control"  name="fechaFin" mwlFlatpickr (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"/>
               </td>
-              <td> 
+              <!--<td> 
                 <select class="form-control" id="tipoEvento_{{event.id}}">   
                   <option>Seleccione</option>  
                   <option *ngFor="let tipoEvento of tiposEventos" [ngValue]="tipoEvento.tipo_evento_id"  [selected]="tipoEvento.tipo_evento_id == event.tipoEvento">{{tipoEvento.nombre}}</option>  
               </select>  
-              </td>
+              </td>-->
               <td>
                 <input [(ngModel)]="event.color!.primary" type="color"  name="color" />
               </td>
