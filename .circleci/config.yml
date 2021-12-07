@@ -23,3 +23,19 @@ artifacts:
         - '**/*'
     base-directory: 'dist*'
     discard-paths: yes
+workflows:
+  version: 2.1
+  build_and_deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - master
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
