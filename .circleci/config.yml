@@ -10,39 +10,25 @@ phases:
         commands:
             - echo Installing source NPM dependencies...
             - npm install
-            - npm install -g @angular/cli
     build:
         commands:
             - echo Build started on `date`
-            - ng build --env=${BUILD_ENV}
+            - ng build
     post_build:
          commands:
-            - aws s3 cp dist/calendario s3://angular-ucp-calendar/ --recursive
+            - aws s3 cp dist/calendario s3://angular-ucp-calendar --recursive
             - echo Build completed on `date`
 artifacts:
     files:
         - '**/*'
     base-directory: 'dist*'
     discard-paths: yes
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
-jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
-    steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  version: 2.1
+  build_and_deploy:
     jobs:
-      - say-hello
+      - build:
+          filters:
+            branches:
+              only:
+                - master
