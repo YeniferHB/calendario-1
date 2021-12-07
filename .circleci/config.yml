@@ -1,17 +1,18 @@
 jobs:
   build-deploy: # name of your job
     machine: # executor type
-      image: ubuntu-1604:202007-01 # VM will run Ubuntu 16.04 for this release date
-      steps:
-        - checkout
-        - run:
-            name: Installin AWS CLI
-            command: |
-              sudo apt-get update
-              sudo apt install python3-pip
-              sudo pib3 install awsebcli --upgrade
-        - run: npm install && ng build
-        - run: aws s3 cp dist/calendario s3://angular-ucp-calendar --recursive
+      image: ubuntu-2004:202010-01 # VM will run Ubuntu 16.04 for this release date
+    steps:
+      - checkout
+      - run:
+          name: Installin AWS CLI
+          command: |
+            sudo apt-get update
+            sudo apt install python3-pip
+            sudo pib3 install awsebcli --upgrade
+      - run: npm install && ng build
+      - run: aws s3 cp dist/calendario s3://angular-ucp-calendar --recursive
+      
 workflows:
   version: 2
   build-deploy-workflow:
