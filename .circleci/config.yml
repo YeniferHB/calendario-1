@@ -1,11 +1,11 @@
 jobs:
-  build-deploy: # name of your job
+  build-deploy: # name of job
     machine: # executor type
-      image: ubuntu-2004:202010-01 # VM will run Ubuntu 16.04 for this release date
+      image: ubuntu-2004:202010-01 # VM will run Ubuntu 20.04
     steps:
       - checkout
       - run:
-          name: Installin AWS CLI
+          name: Installing AWS CLI
           command: |
             sudo apt-get update
             sudo apt install python3-pip
